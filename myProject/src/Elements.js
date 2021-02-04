@@ -49,10 +49,12 @@ class Elements extends React.Component {
             return (
                 <div>
                     <div className="d-none" id='add'>
-                        Element was added to cart successfully
-                        <button type="button" className="btn close float-end" onClick={()=>this.closeAlert()}>
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div className='row'>
+                            <p className='col text-success'>Element was added to cart successfully</p>
+                            <button type="button" className="col-1 btn p-0 ms-auto text-success" onClick={() => this.closeAlert()}>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </div>
                 <ul className="row row-cols-3 justify-content-evenly">
                     {this.renderElements}</ul>
