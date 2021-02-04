@@ -21,7 +21,7 @@ class Elements extends React.Component {
 
     renderElements = this.elements.map(e => (
         <div className='card px-0 w-33 mb-3' key={e.id}>
-            <img src={image} width='130' height='100' alt='' className='card-img-top'/>
+            <img src={image} width='130' height='140' alt='' className='card-img-top'/>
             <div className='card-body'>
                 <div className='row'>
                     <label className='col'>{e.name}</label>
