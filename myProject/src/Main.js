@@ -76,17 +76,19 @@ class Main extends React.Component {
                     <div className="container content">
                         <div className="row mt-4">
                             <div className="col-3">
-                                <label className="text-muted">Email</label>
-                                <input type="email" id="email" className='signInput'/>
-                                <p className='d-none' id='alert1'>Email is incorrect or not existed</p>
-                                <label className="text-muted mt-3">Password</label>
-                                <input type="password" id="password" className="signInput"/>
-                                <p className='d-none' id='alert2'>Password is incorrect</p>
-                                <button className='btn btn-success mt-3' onClick={this.loginUser}>SIGN IN ></button>
-                                <div className='w-100 mt-3'>
-                                    <input type="checkbox" name='remember' className='form-check-input'/>
-                                    <label className='form-check-label ms-3 text-muted'>Remember me</label>
-                                </div>
+                                <form action="" method='post' onSubmit={this.loginUser}>
+                                    <label className="text-muted">Email</label>
+                                    <input type="email" id="email" className='signInput'/>
+                                    <p className='d-none' id='alert1'>Email is incorrect or not existed</p>
+                                    <label className="text-muted mt-3">Password</label>
+                                    <input type="password" id="password" className="signInput"/>
+                                    <p className='d-none' id='alert2'>Password is incorrect</p>
+                                    <button className='btn btn-success mt-3' type='submit'>SIGN IN ></button>
+                                    <div className='w-100 mt-3'>
+                                        <input type="checkbox" name='remember' className='form-check-input'/>
+                                        <label className='form-check-label ms-3 text-muted'>Remember me</label>
+                                    </div>
+                                </form>
                             </div>
                             <div className="col-9 p-0">
                                 <Elements/>
