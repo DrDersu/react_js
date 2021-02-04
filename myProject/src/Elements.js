@@ -39,13 +39,20 @@ class Elements extends React.Component {
         this.cart.push(element);
         this.setState({size: this.cart.length});
         document.getElementById('btn'+element.id).innerText = 'Added to Cart';
+        document.getElementById('add').className='alert alert-success';
+    }
+    closeAlert(){
+        document.getElementById('add').className='d-none';
     }
 
     render() {
             return (
                 <div>
-                    <div className='alert alert-success'>
-                        Element is added successfully
+                    <div className="d-none" id='add'>
+                        Element was added to cart successfully
+                        <button type="button" className="btn close float-end" onClick={()=>this.closeAlert()}>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 <ul className="row row-cols-3 justify-content-evenly">
                     {this.renderElements}</ul>
