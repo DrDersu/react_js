@@ -1,0 +1,54 @@
+a{
+  color:antiquewhite;
+
+}
+a:hover{
+  text-decoration: none;
+  color:darkgrey;
+}
+
+#home {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+#text1 {
+  color: #fc3735;
+  background: -webkit-linear-gradient(left, #2F3C4F,#F57170 , #10DDC2);
+  background-size: 1600px 200px;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation-duration: 3s;
+  animation-name: animationgradienttitle;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+@keyframes animationgradienttitle {
+  0% {
+      background-position: 0 1600px;
+  }
+  100% {
+      background-position: 1600px 0;
+  }
+}
+
+.registerPage{
+  background-color: #eff6fc;
+}
+
+.underline{
+  text-decoration: underline;
+}
