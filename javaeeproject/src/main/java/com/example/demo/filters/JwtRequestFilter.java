@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -29,17 +28,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        System.out.println("Author = " + request.getHeader("Authorization"));
-
-        final String requestTokenHeader = request.getHeader("Authorization");
+        System.out.println("Auth: "+ request.getHeader("Authorization"));
+        final String requestTokenHeader = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlcmxhbkBtYWlsLnJ1IiwiZXhwIjoxNjE5MDI1MTUyLCJpYXQiOjE2MTkwMDcxNTJ9.9DL6h5aoOQJwRcdcAVEcXs3j-tt0E8-R8othbC39Hpuw8QroaQbLMtCfVtk3IPILSlNfueIDvlbpZ4VB-7VQXA";
         String email = null;
         String jwtToken = null;
 
         if(requestTokenHeader!=null && requestTokenHeader.startsWith("Bearer ")){
             jwtToken = requestTokenHeader.substring(7);
-            System.out.println("jwtToken = " + jwtToken);
-//            jwtToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1IiwiZXhwIjoxNjE4MjM5MzIzLCJpYXQiOjE2MTgyMjEzMjN9.a9kX2stthIQOYM5h3jcQRCUJPUzSLqKw-D1xjoN1k69lmYUNxLO_0IwbpmR4CvEbqeNMDFAzoic4hv5-RjKb0A";
             try{
 
                 email = jwtTokenGenerator.getEmailFromToken(jwtToken);

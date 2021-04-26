@@ -3,33 +3,23 @@ package com.example.demo.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "schedules")
+@Table(name = "t_days")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+public class Days{
 
-public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
-    private String title;
-
-    @Column(name = "bg_color")
-    private String color;
-
-    @Column(name = "bg_image")
-    private String imageSrc;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Users user;
-
+    @Column(name = "day")
+    private String day;
 
 }
