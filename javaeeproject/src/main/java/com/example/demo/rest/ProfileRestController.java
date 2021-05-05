@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ProfileRestController {
     @Autowired
     private UserService userService;
@@ -80,15 +81,6 @@ public class ProfileRestController {
             return ResponseEntity.status(409).body("Password is incorrect");
         }
     }
-
-    @RequestMapping(value = "/logout")
-    public ResponseEntity<?> logOut(HttpServletRequest request, HttpServletResponse response){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        new SecurityContextLogoutHandler().logout(request,response,authentication);
-        System.out.println("Log out");
-        return ResponseEntity.ok().body("Logged Out");
-    }
-
 
 
 }

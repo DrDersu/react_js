@@ -12,9 +12,9 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 @RestController
@@ -27,22 +27,19 @@ public class ScheduleRestController {
 
     @GetMapping(value = "/all")
     public ResponseEntity<?> allSchedules() {
+        System.out.println("All schedules");
         Users user = getUser();
         List<Schedule> allSchedules = scheduleService.getSchedulesByUser(user);
-        if (!allSchedules.isEmpty()) {
-            List<ScheduleRequest> allSchedulesDTO = new ArrayList<>();
-            for (int i = 0; i < allSchedules.size(); i++) {
-                ScheduleRequest scheduleRequest = new ScheduleRequest();
-                scheduleRequest.setId(allSchedules.get(i).getId().toString());
-                scheduleRequest.setTitle(allSchedules.get(i).getTitle());
-                scheduleRequest.setBg_color(allSchedules.get(i).getColor());
-                scheduleRequest.setBg_image(allSchedules.get(i).getImageSrc());
-                allSchedulesDTO.add(scheduleRequest);
-            }
-            return new ResponseEntity<>(allSchedulesDTO, HttpStatus.OK);
-        } else {
-            return ResponseEntity.ok().body("No schedules");
+        List<ScheduleRequest> allSchedulesDTO = new ArrayList<>();
+        for (int i = 0; i < allSchedules.size(); i++) {
+            ScheduleRequest scheduleRequest = new ScheduleRequest();
+            scheduleRequest.setId(allSchedules.get(i).getId().toString());
+            scheduleRequest.setTitle(allSchedules.get(i).getTitle());
+            scheduleRequest.setBg_color(allSchedules.get(i).getColor());
+            scheduleRequest.setBg_image(allSchedules.get(i).getImageSrc());
+            allSchedulesDTO.add(scheduleRequest);
         }
+        return new ResponseEntity<>(allSchedulesDTO, HttpStatus.OK);
     }
 
     @PostMapping(value = "/add")
@@ -52,9 +49,10 @@ public class ScheduleRestController {
         if (scheduleCheck.isEmpty()) {
             Schedule schedule = new Schedule(null, request.getTitle(), request.getBg_color(), request.getBg_image(), user);
             scheduleService.addSchedule(schedule);
+            System.out.println("add: successful");
             return ResponseEntity.ok().body("Added");
-        }
-        else{
+        } else {
+            System.out.println("add: same title of schedule");
             return ResponseEntity.status(409).body("Schedule is same title is already exists");
         }
     }
@@ -70,10 +68,10 @@ public class ScheduleRestController {
             schedule.setColor(request.getBg_color());
             schedule.setImageSrc(request.getBg_image());
             scheduleService.saveSchedule(schedule);
-
+            System.out.println("update: updated");
             return ResponseEntity.ok().body("Updated");
-        }
-        else{
+        } else {
+            System.out.println("update: same title");
             return ResponseEntity.status(409).body("Schedule is same title is already exists");
         }
     }
@@ -81,15 +79,11 @@ public class ScheduleRestController {
     @PostMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteSchedule(@PathVariable(name = "id") String id) {
         Schedule schedule = scheduleService.getScheduleById(Long.parseLong(id));
-        if(schedule!=null){
-            System.out.println(schedule.getColor());
-            scheduleService.deleteSchedule(schedule);
+        System.out.println(schedule.getColor());
+        scheduleService.deleteSchedule(schedule);
+        System.out.println("delete: deleted");
+        return ResponseEntity.ok().body("");
 
-            return ResponseEntity.ok().body("Deleted");
-        }
-        else{
-            return ResponseEntity.status(409).body("Wrong id");
-        }
     }
 
 

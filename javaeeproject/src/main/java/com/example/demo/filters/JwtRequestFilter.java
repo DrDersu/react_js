@@ -1,6 +1,7 @@
 package com.example.demo.filters;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import com.example.demo.dto.JwtResponse;
 import com.example.demo.jwt.JWTTokenGenerator;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -28,15 +30,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("Auth: "+ request.getHeader("Authorization"));
-        final String requestTokenHeader = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlcmxhbkBtYWlsLnJ1IiwiZXhwIjoxNjE5MDI1MTUyLCJpYXQiOjE2MTkwMDcxNTJ9.9DL6h5aoOQJwRcdcAVEcXs3j-tt0E8-R8othbC39Hpuw8QroaQbLMtCfVtk3IPILSlNfueIDvlbpZ4VB-7VQXA";
         String email = null;
         String jwtToken = null;
-
-        if(requestTokenHeader!=null && requestTokenHeader.startsWith("Bearer ")){
-            jwtToken = requestTokenHeader.substring(7);
+        String requestTokenHeader = request.getParameter("auth");
+        if(requestTokenHeader!=null && requestTokenHeader.startsWith("Bearer")){
+            jwtToken = requestTokenHeader.substring(6);
             try{
-
                 email = jwtTokenGenerator.getEmailFromToken(jwtToken);
 
             }catch (IllegalArgumentException e){

@@ -30,29 +30,26 @@ public class ActivityRestController {
     public ResponseEntity<?> getActivities(@PathVariable(name = "id") String id) {
         Schedule schedule = scheduleService.getScheduleById(Long.parseLong(id));
         List<Activity> activities = activityService.getActvitiesByScheduleIs(schedule);
-        if (!activities.isEmpty()) {
-            List<ActivityRequest> activitiesDTO = new ArrayList<>();
-            for (int i = 0; i < activities.size(); i++) {
-                ActivityRequest activityDTO = new ActivityRequest();
-                activityDTO.setId(activities.get(i).getId().toString());
-                activityDTO.setName(activities.get(i).getName());
-                activityDTO.setBg_color(activities.get(i).getBg_color());
-                String daysDTO = "";
-                for (Days day : activities.get(i).getDays()) {
-                    daysDTO += day.getId().toString();
-                }
-                activityDTO.setDays(daysDTO);
-                activityDTO.setText_color(activities.get(i).getText_color());
-                activityDTO.setDescription(activities.get(i).getDescription());
-                activityDTO.setStart_time(activities.get(i).getStart_time().toString());
-                activityDTO.setEnd_time(activities.get(i).getEnd_time().toString());
-                activityDTO.setSchedule_id(id);
-                activitiesDTO.add(activityDTO);
+        System.out.println("activities: getAll");
+        List<ActivityRequest> activitiesDTO = new ArrayList<>();
+        for (int i = 0; i < activities.size(); i++) {
+            ActivityRequest activityDTO = new ActivityRequest();
+            activityDTO.setId(activities.get(i).getId().toString());
+            activityDTO.setName(activities.get(i).getName());
+            activityDTO.setBg_color(activities.get(i).getBg_color());
+            String daysDTO = "";
+            for (Days day : activities.get(i).getDays()) {
+                daysDTO += day.getDay()+" ";
             }
-            return new ResponseEntity<>(activitiesDTO, HttpStatus.OK);
-        } else {
-            return ResponseEntity.ok().body("No activities");
+            activityDTO.setDays(daysDTO);
+            activityDTO.setText_color(activities.get(i).getText_color());
+            activityDTO.setDescription(activities.get(i).getDescription());
+            activityDTO.setStart_time(activities.get(i).getStart_time().toString());
+            activityDTO.setEnd_time(activities.get(i).getEnd_time().toString());
+            activityDTO.setSchedule_id(id);
+            activitiesDTO.add(activityDTO);
         }
+        return new ResponseEntity<>(activitiesDTO, HttpStatus.OK);
     }
 
     @PostMapping(value = "/add")
