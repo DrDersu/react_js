@@ -8,19 +8,19 @@ import {
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
-import UserProvider from "./UserProvider";
-import {useContext} from "react";
-import UserContext from "./UserContext";
 import Header from "./Header";
 import Profile from "./Profile";
+import UserProvider from "./UserProvider";
+import Footer from "./Footer";
+import TestApi from "./TestApi";
+
 
 function App() {
-    const user = useContext(UserContext);
     return (
         <UserProvider>
             <div>
                 <Router>
-                    <Header currentUser={user}/>
+                    <Header/>
                     <Switch>
                         <Route path="/login">
                             <Login/>
@@ -31,10 +31,14 @@ function App() {
                         <Route path='/profile'>
                             <Profile/>
                         </Route>
+                        <Route path='/test'>
+                            <TestApi/>
+                        </Route>
                         <Route path='/'>
                             <Home/>
                         </Route>
                     </Switch>
+                    <Footer/>
                 </Router>
             </div>
         </UserProvider>
